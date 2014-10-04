@@ -16,7 +16,7 @@
 	<script language="Javascript" type="text/javascript">
 		// initialisation sintax highlight edita_area
 		editAreaLoader.init({
-			id: "id_code_area"	// id of the textarea to transform		
+			id: "id_code_area_ii"	// id of the textarea to transform		
 			,start_highlight: true	// if start with highlight
 			,allow_resize: "both"
 			,allow_toggle: true
@@ -29,16 +29,93 @@
 			
 		});
 		
+		// callback functions
+		function my_save(id, content){
+			alert("Here is the content of the EditArea '"+ id +"' as received by the save callback function:\n"+content);
+		}
+		
+		function my_load(id){
+			editAreaLoader.setValue(id, "The content is loaded from the load_callback function into EditArea");
+		}
+		
+		function test_setSelectionRange(id){
+			editAreaLoader.setSelectionRange(id, 100, 150);
+		}
+		
+		function test_getSelectionRange(id){
+			var sel =editAreaLoader.getSelectionRange(id);
+			alert("start: "+sel["start"]+"\nend: "+sel["end"]); 			
+			//alert(sel["start"].offsetLeft); 
+			//document.getElementById('id_code_area_i').style.position="absolute";
+			//document.getElementById('id_code_area_i').style.marginTop = sel["start"]+ document.body.scrollLeft +'px';
+			//document.getElementById('id_code_area_i').style.marginLeft = sel["end"]+'px';
+			//document.getElementById('id_code_area_i').style.marginLeft = document.getElementById('id_code_area_ii').offsetLeft+'px';
+			//alert(document.getElementById('id_code_area_ii').offsetLeft);
+			//var elem = window.on
+			//alert(elem.offsetLeft);			
+			//window.scrollTo(x, y);
+			
+		}
+		
+		var cursorFocus = function(id_code_area_ii) {
+			
+			
+			}
+		
+		function test_setSelectedText(id){
+			text= "[REPLACED SELECTION]"; 
+			editAreaLoader.setSelectedText(id, text);
+		}
+		
+		function test_getSelectedText(id){
+			alert(editAreaLoader.getSelectedText(id)); 
+		}
+		
+		
+		/*function editAreaLoaded(id){
+			if(id=="example_2")
+			{
+				open_file1();
+				open_file2();
+			}
+		}
+		
+		function open_file1()
+		{
+			var new_file= {id: "to\\ é # € to", text: "$authors= array();\n$news= array();", syntax: 'php', title: 'beautiful title'};
+			editAreaLoader.openFile('example_2', new_file);
+		}
+		
+		function open_file2()
+		{
+			var new_file= {id: "Filename", text: "<a href=\"toto\">\n\tbouh\n</a>\n<!-- it's a comment -->", syntax: 'html'};
+			editAreaLoader.openFile('example_2', new_file);
+		}
+		
+		function close_file1()
+		{
+			editAreaLoader.closeFile('example_2', "to\\ é # € to");
+		}
+		*/
+		function toogle_editable(id)
+		{
+			editAreaLoader.execCommand(id, 'set_editable', !editAreaLoader.execCommand(id, 'is_editable'));
+		}		
 					
 	</script>
 </head>
 <body>
 <h2>Online Editor</h2>
 
+<!-- auto complete -->
+<div> 
+<textarea id="id_code_area_i"></textarea>
+</div>
+
 <form action='' method='post'>
 	<fieldset>
 		<legend>Online Editor</legend>		
-		<textarea id="id_code_area" style="height:700px; width: 100%;" name="code_area">
+		<textarea id="id_code_area_ii" style="height:700px; width: 100%;" name="code_area">
 <?php	
 	$authors	= array();
 	$news		= array();
@@ -69,15 +146,51 @@
 	printf("</table>");
 ?>
 		</textarea>
+		<p>Custom controls:<br />
+			<input type='button' onclick='alert(editAreaLoader.getValue("id_code_area_i"));' value='get value' />
+			<input type='button' onclick='editAreaLoader.setValue("id_code_area_ii", editAreaLoader.getValue("id_code_area_i"));' value='set value' />
+			<input type='button' onclick='test_getSelectionRange("id_code_area_ii");' value='getSelectionRange' />
+			<input type='button' onclick='test_setSelectionRange("example_1");' value='setSelectionRange' />
+			<input type='button' onclick='test_getSelectedText("example_1");' value='getSelectedText' />
+			<input type='button' onclick='test_setSelectedText("example_1");' value='setSelectedText' />
+			<input type='button' onclick='editAreaLoader.insertTags("example_1", "[OPEN]", "[CLOSE]");' value='insertTags' />
+			<input type='button' onclick='toogle_editable("example_1");' value='Toggle readonly mode' />
+		</p>
 		
 	</fieldset>		     	
     
 </form>
 
-<!-- auto complete -->
-<textarea id="id_code_area"></textarea>
+
 
 <script>
+
+
+// função pra retornar ponteiro do mouse - adaptar par cursor
+var isIE = document.all ? true : false;
+document.onmousemove = getMousePosition;
+function getMousePosition(e) {
+	var _x;
+	var _y;
+	if (!isIE) {
+		_x = e.pageX;
+		_y = e.pageY;
+	}
+	if (isIE) {
+		_x = event.clientX + document.body.scrollLeft;
+		_y = event.clientY + document.body.scrollTop;
+	}
+	posX = _x;
+	posY = _y;	
+	document.getElementById('id_code_area_i').style.position="absolute";
+	document.getElementById('id_code_area_i').style.marginLeft = posX+'px !important';
+	document.getElementById('id_code_area_i').style.marginTop = posY;
+return true;
+}
+
+
+
+///////////////
 $(function() {
 var availableTagsthis = availableTagsCss;
 var minWordLength = 2;
@@ -88,7 +201,7 @@ return val.split(' ');
 function extractLast(term) {
 return split(term).pop();
 }
-$("#id_code_area") // jQuery Selector
+$("#id_code_area_i") // jQuery Selector
 // don't navigate away from the field on tab when selecting an item
 .bind("keydown", function(event) {
 if (event.keyCode === $.ui.keyCode.TAB && $(this).data("ui-autocomplete").menu.active) {
@@ -116,10 +229,24 @@ terms.push(ui.item.value);
 // add placeholder to get the comma-and-space at the end
 terms.push("");
 this.value = terms.join(" ");
+editAreaLoader.setValue("id_code_area_ii", editAreaLoader.getValue("id_code_area_ii") + editAreaLoader.getValue("id_code_area_i"));
+editAreaLoader.setValue("id_code_area_i", "");
+
 return false;
 }
 });
 });
+
+$("#id_code_area_i").bind("keydown", function(event) {
+var charCode = event.keyCode;
+	if(charCode == 13 || charCode== 32){
+	editAreaLoader.setValue("id_code_area_ii", editAreaLoader.getValue("id_code_area_ii") + editAreaLoader.getValue("id_code_area_i"));
+	editAreaLoader.setValue("id_code_area_i", "");
+}
+});
+
+ 
+
 </script>
 
 
