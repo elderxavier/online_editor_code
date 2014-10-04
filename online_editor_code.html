@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>EditArea - the code editor in a textarea</title>
+	<!-- sintax highlight -->
+	<script language="Javascript" type="text/javascript" src="./edit_area/edit_area_full.js"></script>	
+	
+	<!-- auto complete -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"/>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+	
+	<script src="keyword_auto_complete.js"></script>
+	
+	<script language="Javascript" type="text/javascript">
+		// initialisation sintax highlight edita_area
+		editAreaLoader.init({
+			id: "id_code_area"	// id of the textarea to transform		
+			,start_highlight: true	// if start with highlight
+			,allow_resize: "both"
+			,allow_toggle: true
+			,word_wrap: true
+			,language: "en"
+			,syntax: "php"	
+			,toolbar: "search, go_to_line, |, undo, redo, |, select_font, |, syntax_selection, |, change_smooth_selection, highlight, reset_highlight, |, help"
+			,syntax_selection_allow: "css,html,js,php,python,vb,xml,c,cpp,sql,basic,pas,brainfuck"			
+			,show_line_colors: true
+			
+		});
+		
+					
+	</script>
+</head>
+<body>
+<h2>Online Editor</h2>
+
+<form action='' method='post'>
+	<fieldset>
+		<legend>Online Editor</legend>		
+		<textarea id="id_code_area" style="height:700px; width: 100%;" name="code_area">
+<?php	
+	$authors	= array();
+	$news		= array();
+	/* this is a long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long comment for showing word-wrap feature */
+	$query	= "SELECT author, COUNT(id) as 'nb_news' FROM news_messages GROUP BY author";
+	$result	= mysql_query($query, $DBnews);
+	while( $line = mysql_fetch_assoc($result) ){
+		$authors[$line["author"]]	= $line["author"];
+		$news[$line["author"]]		= $line['nb_news'];
+	}
+	
+	$list= sprintf("('%s')", implode("', '", $authors));
+	
+	
+	$query="SELECT p.people_id, p.name, p.fname, p.status, team_name, t.leader_id=p.people_id as 'team_leader', w.name as 'wp_name', w.type
+			FROM people p, teams t, wppartis wp, wps w
+			WHERE p.people_id IN $list AND p.org_id=t.team_id AND wp.team_id=t.team_id AND wp.wp_id=w.wp_id 
+			GROUP BY p.people_id";
+	if(isset($_GET["order"]) && $_GET["order"]!="nb_news")
+		$query.=" ORDER BY ".$_GET["order"];
+		
+	$result=mysql_query($query, $DBkal);
+	while($line = mysql_fetch_assoc($result)){
+		printf("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>", $line["name"], $line["fname"],
+			$news[$line["people_id"]], $line["status"], $line["team_name"], ($line["team_leader"]=="1")?"yes":"no", $line["type"], $line["wp_name"]);
+	
+	}
+	printf("</table>");
+?>
+		</textarea>
+		
+	</fieldset>		     	
+    
+</form>
+
+<!-- auto complete -->
+<textarea id="id_code_area"></textarea>
+
+<script>
+$(function() {
+var availableTagsthis = availableTagsCss;
+var minWordLength = 2;
+function split(val) {
+return val.split(' ');
+}
+ 
+function extractLast(term) {
+return split(term).pop();
+}
+$("#id_code_area") // jQuery Selector
+// don't navigate away from the field on tab when selecting an item
+.bind("keydown", function(event) {
+if (event.keyCode === $.ui.keyCode.TAB && $(this).data("ui-autocomplete").menu.active) {
+event.preventDefault();
+}
+}).autocomplete({
+minLength: minWordLength,
+source: function(request, response) {
+// delegate back to autocomplete, but extract the last term
+var term = extractLast(request.term);
+if(term.length >= minWordLength){
+response($.ui.autocomplete.filter(availableTagsthis, term ));
+}
+},
+focus: function() {
+// prevent value inserted on focus
+return false;
+},
+select: function(event, ui) {
+var terms = split(this.value);
+// remove the current input
+terms.pop();
+// add the selected item
+terms.push(ui.item.value);
+// add placeholder to get the comma-and-space at the end
+terms.push("");
+this.value = terms.join(" ");
+return false;
+}
+});
+});
+</script>
+
+
+</body>
+</html>
