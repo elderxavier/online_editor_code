@@ -36,7 +36,7 @@ var availableTagsBasic = [
 			'abs', 'asc', 'atn', 'cdbl', 'chr', 'cint', 'clng',
 			'cos', 'csng', 'csrlin', 'cvd', 'cvdmbf', 'cvi', 'cvl',
 			'cvs', 'cvsmbf', 'eof', 'erdev', 'erl', 'err', 'exp',
-			'fileattr', 'fix', 'fre', 'freefile', 'hex', 'inkey',
+			'fileattributes[int]', 'fix', 'fre', 'freefile', 'hex', 'inkey',
 			'inp', 'input', 'instr', 'int', 'ioctl', 'lbound',
 			'lcase', 'left', 'len', 'loc', 'lof', 'log', 'lpos',
 			'ltrim', 'mid', 'mkd', 'mkdmbf', 'mki', 'mkl', 'mks',
@@ -200,7 +200,7 @@ var availableTagsCPP = [
 /*****CSS Language *****/
 var availableTagsCss = [
 		/*KEYWORDS'*/
-		/* attributes */
+		/* attributes[int]ibutes */
 			'aqua', 'azimuth', 'background-attachment', 'background-color',
 			'background-image', 'background-position', 'background-repeat',
 			'background', 'border-bottom-color', 'border-bottom-style',
@@ -330,11 +330,55 @@ var availableTagsJS = [
 	'outerWidth','pageXOffset','pageYOffset','parent','screen','screenLeft','screenTop','screenX','screenY','self','status','top',
 	/*Window Object Methods*/
 	'alert()','atob()','blur()','btoa()','clearInterval()','clearTimeout()','close()','confirm()','createPopup()','focus()','moveBy()','moveTo()','open()',
-	'print()','prompt()','resizeBy()','resizeTo()','scroll()','scrollBy()','scrollTo()','setInterval()','setTimeout()','stop()'
-	//http://www.w3schools.com/jsref/obj_window.asp
+	'print()','prompt()','resizeBy()','resizeTo()','scroll()','scrollBy()','scrollTo()','setInterval()','setTimeout()','stop()',
+	/*Navigator Object Properties*/
+	'appCodeName','appName','appVersion','cookieEnabled','language','onLine','platform','product','userAgent',
+	/*Navigator Object Methods*/
+	'javaEnabled()','taintEnabled()',
+	/*Screen Object Properties*/
+	'availHeight','availWidth','colorDepth','height','pixelDepth','width',
+	/*History Object Methods*/
+	'back()','forward()','go()',
+	/*Location Object Properties*/
+	'hash','host','hostname','href','origin','pathname','port','protocol','search',
+	/*Location Object Methods*/
+	'assign()','reload()','replace()',
+	/*Document Object Properties and Methods*/
+	'document.addEventListener()','document.adoptNode(node)','document.anchors','document.applets','document.baseURI','document.body','document.close()',
+	'document.cookie','document.createattributes()','document.createComment()','document.createDocumentFragment()','document.createElement()','document.createTextNode()',
+	'document.doctype','document.documentElement','document.documentMode','document.documentURI','document.domain','document.domConfig','document.embeds',
+	'document.forms','document.getElementById()','document.getElementsByClassName()','document.getElementsByName()','document.getElementsByTagName()',
+	'document.head','document.images','document.implementation','document.importNode()','document.inputEncoding','document.lastModified','document.links',
+	'document.normalize()','document.normalizeDocument()','document.open()','document.querySelector()','document.querySelectorAll()','document.readyState',
+	'document.referrer','document.removeEventListener()','document.renameNode()','document.scripts','document.strictErrorChecking','document.title',
+	'document.URL','document.write()','document.writeln()',
+	/*Avoid using these node object properties and methods on HTML document objects:*/
+	'document.attributes','document.hasattributes','document.nextSibling','document.nodeName','document.nodeType','document.nodeValue','document.ownerDocument',
+	'document.ownerElement','document.parentNode','document.previousSibling','document.textContent',
+	/*The following properties and methods can be used on all HTML elements:*/
+	'accessKey','addEventListener()','appendChild()','attributes','blur()','childNodes','className','clientHeight','clientWidth','cloneNode()',
+	'compareDocumentPosition()','contentEditable','dir','firstChild','focus()','getattribute()','getattributeNode()','getElementsByClassName()',
+	'getElementsByTagName()','getFeature()','getUserData()','hasattributes[int]ibute()','hasattributes[int]ibutes()','hasChildNodes()','id','innerHTML',
+	'insertBefore()','isContentEditable','isDefaultNamespace()','isEqualNode()','isSameNode()','isSupported()','lang','lastChild','namespaceURI',
+	'nextSibling','nodeName','nodeType','nodeValue','normalize()','offsetHeight','offsetWidth','offsetLeft','offsetParent','offsetTop','ownerDocument',
+	'parentNode','previousSibling','querySelector()','querySelectorAll()','removeattributes[int]ibute()','removeattributes[int]ibuteNode()','removeChild()','replaceChild()',
+	'removeEventListener()','scrollHeight','scrollLeft','scrollTop','scrollWidth','setattribute()','setattributeNode()','setIdattribute()',
+	'setIdattributeNode()','setUserData()','style','tabIndex','tagName','textContent','title','toString()','nodelist.item()','nodelist.length',
+	/*Properties and Methods*/
+	'attributes[int]ibutes[int].isId','attributes[int]ibutes[int].name','attributes[int]ibutes[int].value','attributes[int]ibutes[int]specified','nodemap.getNamedItem()','nodemap.item()',
+	'nodemap.length','nodemap.removeNamedItem()','nodemap.setNamedItem()',
+	/*DOM 4 Warning !!!'*/
+	'attributes[int].appendChild()','attributes[int].attributes','attributes[int].baseURI','attributes[int].childNodes','attributes[int].cloneNode()',
+	'attributes[int].firstChild','attributes[int].hasattributes()','attributes[int].hasChildNodes','attributes[int].insertBefore()','attributes[int].isEqualNode()',
+	'attributes[int].isSameNode()','attributes[int].isSupported()','attributes[int].lastChild','attributes[int].nextSibling',
+	'attributes[int].nodeName','attributes[int].nodeType','attributes[int].nodeValue','attributes[int].normalize()','attributes[int].ownerDocument',
+	'attributes[int].ownerElement','attributes[int].parentNode','attributes[int].previousSibling','attributes[int].removeChild','attributes[int].replaceChild',
+	'attributes[int].textContent'
+	/*http://www.w3schools.com/jsref/dom_obj_event.asp*/
+
 
 	
-	
+
 	
 ];
 
