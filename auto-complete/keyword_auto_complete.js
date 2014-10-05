@@ -1,3 +1,11 @@
+/*
+**********************************
+	*@autor		Elder Xavier
+	*@contact 	eldersxavier@gmail.com
+	
+***********************************
+*/
+
 var availableTagsBasic = [
             /*****Basic Language *****/
 			/* statements */
@@ -252,3 +260,81 @@ var availableTagsCss = [
 	
 
 ];
+
+//all keywords references http://www.w3schools.com/tags/default.asp 2014-05-10
+var availableTagsHtml = [	
+	'<!-- -->', '<!DOCTYPE>', '<a> </a>', '<abbr> </abbr>', '<acronym> </acronym>','<address> </address>', '<applet> </applet>',
+	'<area> </area>', '<article> </article>', '<aside> </aside>', '<audio> </audio>', '<b> </b>', '<base> </base>', '<basefont> </basefont>',
+	'<bdi> </bdi>', '<bdo> </bdo>', '<big> </big>', '<blockquote> </blockquote>', '<body> </body>', '<br/>', '<button> </button>',
+	'<canvas> </canvas>', '<caption> </caption>', '<center> </center>', '<cite> </cite>', '<code> </code>', '<col> </col>', '<colgroup> </colgroup>',
+	'<datalist> </datalist>', '<dd> </dd>', '<del> </del>', '<details> </details>', '<dfn> </dfn>', '<dialog> </dialog>', '<dir> </dir>', 
+	'<div> </div>', '<dl> </dl>', '<dt> </dt>', '<em> </em>', '<embed> </embed>', '<fieldset> </fieldset>','<figcaption> </figcaption>',
+	'<figure> </figure>','<font> </font>', '<footer> </footer>','<form> </form>', '<frame> </frame>','<frameset> </frameset>', '<h1> </h1>',
+	'<h2> </h2>','<h3> </h3>','<h4> </h4>', '<h5> </h5>', '<h6> </h6>','<head> </head>', '<header> </header>', '<hgroup> </hgroup>',
+	'<hr> </hr>', '<html> </html>', '<i> </i>',	'<iframe> </iframe>','<img>','<input>',' <ins> </ins>','<kbd> </kbd>','<keygen>',
+	'<label> </label>','<legend> </legend>','<li> </li>','<link />','<main> </main>','<map> </map>','<mark> </mark>','<menu> </menu>',
+	'<menuitem> </menuitem>','<meta>', '<meter> </meter>', '<nav> </nav>', '<noframes> </noframes>','<noscript> </noscript>','<object> </object>',
+	'<ol> </ol>','<optgroup> </optgroup>', '<option> </option>','<output> </output>','<p> </p>','<param>', '<pre> </pre>','<progress> </progress>',
+	'<q> </q>','<rp> </rp>','<rt> </rt>','<ruby> </ruby>','<s> </s>','<samp> </samp>','<script> </script>','<section> </section>','<select> </select>',
+	'<small> </small>','<source> </source>','<span> </span>','<strong> </strong>','<style> </style>','<sub> </sub>','<summary> </summary>',
+	'<sup> </summary>','<table> </table>','<tbody> </tbody>','<td> </td>','<textarea> </textarea>','<tfoot> </tfoot>','<th> </th>','<thead> </thead>',
+	'<time> </time>','<title> </title>','<tr> </tr>','<track> </track>','<tt> </tt>','<u> </u>','<ul> </ul>','<var> </var>','<video> </video>',
+	'<wbr> </wbr>'
+
+];
+
+var availableTagsJava = ['abcdefg'];
+
+// all reference http://www.w3schools.com/jsref/default.asp
+var availableTagsJS = [
+	
+	/***String Methods***/	
+	/*Method*/
+	'charAt()','charCodeAt()','concat()','fromCharCode()','indexOf()','lastIndexOf()','localeCompare()','match()','replace()','search()','slice()',
+	'split()','substr()','substring()','toLocaleLowerCase()','toLocaleUpperCase()','toLowerCase()','toString()','toUpperCase()','trim()','valueOf()',
+	/*String HTML Wrapper Methods*/
+	'anchor()','big()','blink()','bold()','fixed()','fontcolor()','fontsize()','italics()','link()','small()','strike()','sub()','sup()',
+	/*Number Properties*/	
+	'MAX_VALUE','MIN_VALUE','NEGATIVE_INFINITY','NaN','POSITIVE_INFINITY','prototype',
+	/*Number Methods*/
+	'toExponential(x)','toFixed(x)','toPrecision(x)',
+	/*JavaScript Statement Identifiers*/	
+	'break','catch','continue','do','while','for','in','function','if','else','return','switch','case','throw','try','var',
+	/*Math Object*/
+	'Math',
+	/*Property Math*/
+	'Math.E','Math.LN2','Math.LN10','Math.LOG2E','Math.LOG10E','Math.PI','Math.SQRT1_2','Math.SQRT2',
+	/*Math Object Methods*/
+	'Math.abs(x)','Math.acos(x)','Math.asin(x)','Math.atan(x)','Math.atan2(y,x)','Math.ceil(x)','Math.cos(x)','Math.exp(x)','Math.floor(x)','Math.log(x)',
+	'Math.max(x,y,z,...,n)','Math.min(x,y,z,...,n)','Math.pow(x,y)','Math.random()','Math.round(x)','Math.sin(x)','Math.sqrt(x)','Math.tan(x)',
+	/*Date Object Methods*/
+	'getDate()','getDay()','getFullYear()','getHours()','getMilliseconds()','getMinutes()','getMonth()','getSeconds()','getTime()','getTimezoneOffset()',
+	'getUTCDate()','getUTCDay()','getUTCFullYear()','getUTCHours()','getUTCMilliseconds()','getUTCMinutes()','getUTCMonth()','getUTCSeconds()',
+	'getYear()','parse()','setDate()','setFullYear()','setHours()','setMilliseconds()','setMinutes()','setMonth()','setSeconds()','setTime()',
+	'setUTCDate()','setUTCFullYear()','setUTCHours()','setUTCMilliseconds()','setUTCMinutes()','setUTCMonth()','setUTCSeconds()','setYear()',
+	'toDateString()','toGMTString()','toISOString()','toJSON()','toLocaleDateString()','toLocaleTimeString()','toLocaleString()',
+	'toTimeString()','toUTCString()','UTC()',
+	/*other*/
+	'new','void','length','constructor',
+	/*Array Methods*/
+	'concat()','indexOf()','join()','lastIndexOf()','pop()','push()','reverse()','shift()','sort()','splice()','unshift()',
+	/*RegExp Object Properties*/	
+	'global','ignoreCase','lastIndex','multiline','source',
+	/*RegExp Object Methods*/
+	'compile()','exec()','test()',	
+	/*JavaScript Global Functions*/
+	'decodeURI()','decodeURIComponent()','encodeURI()','encodeURIComponent()','escape()','eval()','isFinite()','isNaN()','Number()',
+	'parseFloat()','parseInt()','String()','unescape()',
+	/*Window Object Properties*/
+	'closed','defaultStatus','document','frames','history','innerHeight','innerWidth','length','location','name','navigator','opener','outerHeight',
+	'outerWidth','pageXOffset','pageYOffset','parent','screen','screenLeft','screenTop','screenX','screenY','self','status','top',
+	/*Window Object Methods*/
+	'alert()','atob()','blur()','btoa()','clearInterval()','clearTimeout()','close()','confirm()','createPopup()','focus()','moveBy()','moveTo()','open()',
+	'print()','prompt()','resizeBy()','resizeTo()','scroll()','scrollBy()','scrollTo()','setInterval()','setTimeout()','stop()'
+	//http://www.w3schools.com/jsref/obj_window.asp
+
+	
+	
+	
+];
+
