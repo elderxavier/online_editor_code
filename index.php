@@ -1,0 +1,239 @@
+<?php
+/**
+ * @version $Id: index.php 195 2011-05-31 06:57:32Z sloarch07 $
+ * @package eXtplorer
+ * @copyright soeren 2007-2010
+ * @author The eXtplorer project (http://joomlacode.org/gf/project/eXtplorer/)
+ * @author The	The QuiX project (http://quixplorer.sourceforge.net)
+ * 
+ * @license
+ * The contents of this file are subject to the Mozilla Public License
+ * Version 1.1 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ * 
+ * Software distributed under the License is distributed on an "AS IS"
+ * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+ * License for the specific language governing rights and limitations
+ * under the License.
+ * 
+ * Alternatively, the contents of this file may be used under the terms
+ * of the GNU General Public License Version 2 or later (the "GPL"), in
+ * which case the provisions of the GPL are applicable instead of
+ * those above. If you wish to allow use of your version of this file only
+ * under the terms of the GPL and not to allow others to use
+ * your version of this file under the MPL, indicate your decision by
+ * deleting  the provisions above and replace  them with the notice and
+ * other provisions required by the GPL.  If you do not delete
+ * the provisions above, a recipient may use your version of this file
+ * under either the MPL or the GPL."
+ * 
+ * Main File for the standalone version
+ */
+// When eXtplorer is running as a component in Joomla! or Mambo, we deny access to this standalone version
+if( stristr( $_SERVER['SCRIPT_NAME'], 'com_extplorer') || stristr( $_SERVER['SCRIPT_NAME'], 'components')) {
+	header( 'HTTP/1.0 404 Not Found');
+	header( 'Location: http://'.$_SERVER['HTTP_HOST']);
+	exit;
+}
+
+// Set flag that this is a parent file
+define( '_VALID_MOS', 1 );
+define( '_VALID_EXT', 1 );
+
+require_once( dirname(__FILE__).'/libraries/standalone.php');
+ob_start();
+include( dirname(__FILE__).'/admin.extplorer.php' );
+$mainbody = ob_get_contents();
+ob_end_clean();
+
+extInitGzip();
+header( 'Expires: Mon, 26 Jul 1997 05:00:00 GMT' );
+header( 'Last-Modified: ' . gmdate( 'D, d M Y H:i:s' ) . ' GMT' );
+header( 'Cache-Control: no-store, no-cache, must-revalidate' );
+header( 'Cache-Control: post-check=0, pre-check=0', false );
+header( 'Pragma: no-cache' );
+
+echo '<?xml version="1.0" encoding="'. $GLOBALS["charset"].'">';
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<?php echo $mainframe->getHead(); ?>
+		<link rel="shortcut icon" href="<?php echo _EXT_URL ?>/eXtplorer.ico" />		
+		<!-- auto complete -->
+	<script src="auto-complete/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="auto-complete/jquery-ui.css"/>
+	<script src="auto-complete/jquery-ui.min.js"></script>
+	
+	<script src="auto-complete/keyword_auto_complete.js"></script>
+		
+		
+		
+		
+		
+ 		<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $GLOBALS["charset"]; ?>" />
+		<meta name="robots" content="noindex, nofollow" />
+	</head>
+	<body>
+		<?php echo $mainbody; ?>
+			<style>
+			.div_autocomplete{
+				font-size:20px;
+				top:145px;
+				left: 475px;
+				position:fixed;				
+				
+			}
+			#id_code_area_i{
+				height:15px;
+				padding: 3px;
+			}
+			.ui-widget{
+				font-size: 11px;
+				overflow: scroll;
+			}
+			#ui-id-1{
+				/*height:225px;*/
+				max-height: 225px;
+				overflow: auto !important;
+			}
+			</style>
+		
+			<script type="text/javascript">	
+			var availableTagsthis;
+			
+			$(document).on('change','#id_select_autocomplete',function(event){				
+				var valor_selected = $("#id_select_autocomplete").val();
+				//alert(valor_selected);
+				
+				switch(valor_selected) {
+					case '1':
+						availableTagsthis = availableTagsJS;												
+						break;
+					case '2':						
+						availableTagsthis = availableTagsCss;
+						break;					
+					case '3':						
+						availableTagsthis = availableTagsCPP;
+						break;					
+					case '4':						
+						availableTagsthis = availableTagsC;
+						break;					
+					case '5':
+						availableTagsthis = availableTagsBasic;
+						break;					
+					case '6':
+						availableTagsthis = availableTagsCoudFusion;
+						break;
+					case '7':
+						availableTagsthis = availableTagsBrainfuck;
+						break;					
+				} 			 
+				//initComplete();	
+			});	
+			
+	
+	
+			
+			var cont =0; //variavel para iniciar contator
+			//var id_ou_class = '.x-btn-text';  //variaveis para iniciar contator
+			
+			$(document).on('click','#ext-gen76',function(event){			
+				cont = 30;
+				id_ou_class = '.x-panel-mc'; 								
+				contador();				
+				});
+
+
+		
+function contador() {		
+	if (cont != 0){
+		cont = cont-1;
+		if($(id_ou_class).length > 0){			
+			$(id_ou_class).append('<div class="div_autocomplete" id="id_div_autocomplete"><textarea id="id_code_area_i"></textarea></div>');
+			$('#id_div_autocomplete').append('<select id="id_select_autocomplete"><option value="1">Java Script</option><option value="2">CSS</option><option value="3">C++</option> <option value="4">C</option> <option value="5">Basic</option>  <option value="6">Coud Fusion</option>  <option value="7">Brainfuck</option></select>');			
+			initComplete();			
+		}else{		
+		setTimeout("contador()", 1000);
+		}
+	}
+}
+
+
+
+function initComplete(){
+$(function() {		
+	var minWordLength = 0;
+	function split(val) {
+		return val.split(' ');
+	} 
+	
+	function extractLast(term) {
+		return split(term).pop();
+	}
+	
+	$("#id_code_area_i").bind("keydown", function(event) { // jQuery Selector don't navigate away from the field on tab when selecting an item
+		var id = $('.x-panel-mc form .x-form-textarea ').attr("id");
+		var charCode = event.keyCode;
+		if(charCode == 13 || charCode== 32){
+			var tx = editAreaLoader.getValue('id_code_area_i');		
+			setTimeout(function(){
+				editAreaLoader.setSelectedText(id,tx);
+				editAreaLoader.setValue("id_code_area_i", "");
+			}, 200);		
+		}		
+		if (event.keyCode === $.ui.keyCode.TAB && $(this).data("ui-autocomplete").menu.active) {			
+			event.preventDefault();
+		}				
+	}).autocomplete({		
+		minLength: minWordLength,
+		source: function(request, response) {
+		// delegate back to autocomplete, but extract the last term
+			var term = extractLast(request.term);
+			if(term.length >= minWordLength){
+				response($.ui.autocomplete.filter(availableTagsthis, term ));
+			}
+			},
+		focus: function() {
+			// prevent value inserted on focus
+			return false;
+		},
+		select: function(event, ui) {
+			var terms = split(this.value);
+			// remove the current input
+			terms.pop();
+			// add the selected item
+			terms.push(ui.item.value);
+			// add placeholder to get the comma-and-space at the end
+			terms.push("");
+			this.value = terms.join("");			
+			var str = terms;
+			var res = str.replace(",", ""); 			
+			editAreaLoader.setValue("id_code_area_i", terms);
+			return false;
+		}
+	});
+	
+});
+}
+
+$(document).on('dblclick','.ui-corner-all',function(event){
+		var id = $('.x-panel-mc form .x-form-textarea ').attr("id");
+		var tx = editAreaLoader.getValue('id_code_area_i');		
+		setTimeout(function(){
+				editAreaLoader.setSelectedText(id,tx);
+				editAreaLoader.setValue("id_code_area_i", "");
+		}, 200);			
+	});
+
+
+			</script>
+		
+	
+	</body>
+</html>
+<?php
+extDoGzip();
+
+?>
